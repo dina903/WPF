@@ -20,8 +20,11 @@
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Item 1 - Default" IsChecked="True"/>
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Item 2" />
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Item 3" />
+
+                <Button Margin="15,180,22,0">Run</Button>
+                <Button Margin="15,10,22,0">Clear</Button>
             </StackPanel>
-            <Canvas>
+            <Canvas> <!--this doesnt resize so be careful-->
 
             </Canvas>
         </DockPanel>
