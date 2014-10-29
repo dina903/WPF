@@ -24,7 +24,8 @@
                 <Button Margin="15,180,22,0">Run</Button>
                 <Button Margin="15,10,22,0">Clear</Button>
             </StackPanel>
-            <Canvas> <!--this doesnt resize so be careful-->
+            <Canvas>
+                <!--this doesnt resize so be careful-->
 
             </Canvas>
         </DockPanel>
