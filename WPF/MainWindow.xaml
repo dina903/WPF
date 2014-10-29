@@ -12,7 +12,7 @@
                 </MenuItem>
             </Menu>
             <StackPanel Orientation="Vertical" Width="150" Background="LightGray">
-                <ComboBox Margin="5,30,0,30" Width="138" RenderTransformOrigin="0.464,0.536">
+                <ComboBox Margin="15,30,22,30" RenderTransformOrigin="0.464,0.536">
                     <ComboBoxItem IsSelected="True">Default Item #1</ComboBoxItem>
                     <ComboBoxItem >Item #3</ComboBoxItem>
                     <ComboBoxItem>Item #3</ComboBoxItem>
