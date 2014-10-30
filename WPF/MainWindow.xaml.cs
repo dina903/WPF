@@ -24,6 +24,8 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+           
         }
+        
     }
 }
