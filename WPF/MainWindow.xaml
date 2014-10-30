@@ -13,8 +13,10 @@
             </Menu>
             <StackPanel Orientation="Vertical" Width="150" Background="LightGray">
                 <ComboBox Margin="15,30,22,30" RenderTransformOrigin="0.464,0.536">
-                    <ComboBoxItem IsSelected="True">Default Item #1</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">5</ComboBoxItem>
                     <ComboBoxItem >Item #3</ComboBoxItem>
+                    <ComboBoxItem>Item #3</ComboBoxItem>
+                    <ComboBoxItem>Item #3</ComboBoxItem>
                     <ComboBoxItem>Item #3</ComboBoxItem>
                 </ComboBox>
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Red" IsChecked="True"/>
