@@ -15,10 +15,6 @@ using System.Windows.Shapes;
 
 namespace WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// this is new project setup
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow() {
