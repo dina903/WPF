@@ -50,20 +50,12 @@ namespace WPF
         //Right Mouse Button Up Event handler
         private void main_canvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("releaseEllispse: \r\t sender = " +
-sender.ToString() +
-" \r\t source = " + e.Source.ToString() +
-" \r\t original source = " +
-e.OriginalSource.ToString());
+            MessageBox.Show("releaseEllispse: \r\t sender = " + sender.ToString() + " \r\t source = " + e.Source.ToString() + " \r\t original source = " + e.OriginalSource.ToString());
         }
 
         private void main_canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("releaseEllispse: \r\t sender = " +
-sender.ToString() +
-" \r\t source = " + e.Source.ToString() +
-" \r\t original source = " +
-e.OriginalSource.ToString());
+            MessageBox.Show("releaseEllispse: \r\t sender = " + sender.ToString() + " \r\t source = " + e.Source.ToString() + " \r\t original source = " + e.OriginalSource.ToString());
         }
     }
 }
