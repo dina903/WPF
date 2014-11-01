@@ -26,16 +26,44 @@ namespace WPF
             InitializeComponent();
         }
         // The selected points.
-        private List<Point> Corners = new List<Point>();
-        private Point LastPoint;
-        private int RADIUS = 3;
+        private List<Point> cp = new List<Point>();
+        private Point last;
+        private int radius = 3;
 
-        void Canvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        //About menu item onClick listener
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
- 
-            Console.WriteLine("Canvas click");
-            e.Handled = true;
+            String message = "WPF Sierpinski Attractor:\nMembers:\n1- Dina Najeeb\n\tE-mail: dina_2552@yahoo.com\n2- " +
+            "Karoon Gayzagian\n\tE-mail:karoon80@hotmail.com";
+            var result = MessageBox.Show(
+                message, "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        //Usage menu item onClick listener
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            String message = "";
+            var result = MessageBox.Show(
+               message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        //Right Mouse Button Up Event handler
+        private void main_canvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("releaseEllispse: \r\t sender = " +
+sender.ToString() +
+" \r\t source = " + e.Source.ToString() +
+" \r\t original source = " +
+e.OriginalSource.ToString());
+        }
+
+        private void main_canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("releaseEllispse: \r\t sender = " +
+sender.ToString() +
+" \r\t source = " + e.Source.ToString() +
+" \r\t original source = " +
+e.OriginalSource.ToString());
+        }
     }
 }
