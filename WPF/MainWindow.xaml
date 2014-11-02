@@ -23,8 +23,8 @@
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Orchid" />
                 <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Turquoise" />
 
-                <Button Margin="15,180,22,0">Run</Button>
-                <Button Margin="15,10,22,0">Clear</Button>
+                <Button x:Name="runBtn" Margin="15,180,22,0" Click="runBtn_Click">Run</Button>
+                <Button x:Name="clearBtn" Margin="15,10,22,0" Click="clearBtn_Click">Clear</Button>
             </StackPanel>
             <Canvas x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
                 <!--This doesnt resize so be careful-->
