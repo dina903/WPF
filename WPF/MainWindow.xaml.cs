@@ -15,7 +15,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Security;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.ComponentModel;
+
 
 namespace WPF
 {
@@ -29,7 +33,7 @@ namespace WPF
         private List<Point> cp = new List<Point>();
         private Point last;
         private int radius = 3;
-
+        
         //About menu item onClick listener
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -50,12 +54,21 @@ namespace WPF
         //Right Mouse Button Up Event handler
         private void main_canvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("releaseEllispse: \r\t sender = " + sender.ToString() + " \r\t source = " + e.Source.ToString() + " \r\t original source = " + e.OriginalSource.ToString());
+          //  MessageBox.Show("releaseEllispse: \r\t sender = " + sender.ToString() + " \r\t source = " + e.Source.ToString() + " \r\t original source = " + e.OriginalSource.ToString());
+            // Save the point.
+            cp.Add(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y));
+
+// Draw the new point.
+/*            using (Graphics gr = this.CreateGraphics())
+            { 
+              if (cp.Count == 1) gr.Clear(this.Background);
+              gr.DrawEllipse(Pens.Blue,
+                  e.GetPosition(main_canvas).X - radius, e.GetPosition(main_canvas).Y - radius,
+                  2 * radius, 2 * radius);
+            }    */
+            
         }
 
-        private void main_canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("releaseEllispse: \r\t sender = " + sender.ToString() + " \r\t source = " + e.Source.ToString() + " \r\t original source = " + e.OriginalSource.ToString());
-        }
+       
     }
 }

@@ -26,7 +26,7 @@
                 <Button Margin="15,180,22,0">Run</Button>
                 <Button Margin="15,10,22,0">Clear</Button>
             </StackPanel>
-            <Canvas x:Name="main_canvas" MouseRightButtonDown="main_canvas_MouseRightButtonDown" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
+            <Canvas x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
                 <!--This doesnt resize so be careful-->
 
             </Canvas>
