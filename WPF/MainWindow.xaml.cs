@@ -100,7 +100,7 @@ namespace WPF
                     ellipse.Width = 2 * radius;
                     ellipse.Height = 2 * radius;
                     ellipse.Stroke = new SolidColorBrush(Colors.Blue);
-                    ellipse.StrokeThickness = 1;
+                    ellipse.StrokeThickness = 2;
                     //whiteSpace.Fill = new SolidColorBrush(Colors.White);
                     Canvas.SetLeft(ellipse, pt.X - radius);
                     Canvas.SetTop(ellipse, pt.Y - radius);
@@ -117,16 +117,16 @@ namespace WPF
                     last = new Point(
                         (last.X + cp[j].X) / 2,
                         (last.Y + cp[j].Y) / 2);
-                    Line ellipseRepeat = new Line();
-                    ellipseRepeat.X1 = last.X;
-                    ellipseRepeat.Y1 = last.Y;
-                    ellipseRepeat.X2 = last.X + 1;
-                    ellipseRepeat.Y2 = last.Y + 1;
-                    ellipseRepeat.Stroke = new SolidColorBrush(Colors.Blue);
-                    ellipseRepeat.StrokeThickness = 1;
+                    Line lineRepeat = new Line();
+                    lineRepeat.X1 = last.X;
+                    lineRepeat.Y1 = last.Y;
+                    lineRepeat.X2 = last.X + 1;
+                    lineRepeat.Y2 = last.Y + 1;
+                    lineRepeat.Stroke = new SolidColorBrush(Colors.Blue);
+                    lineRepeat.StrokeThickness = 2;
                     //whiteSpace.Fill = new SolidColorBrush(Colors.White);
                    
-                    main_canvas.Children.Add(ellipseRepeat);
+                    main_canvas.Children.Add(lineRepeat);
                    
                 }
             } 
