@@ -11,19 +11,22 @@
                 <MenuItem x:Name="usage" DockPanel.Dock="Top" Header ="_Usage" Click="MenuItem_Click_1">
                 </MenuItem>
             </Menu>
-            <StackPanel Orientation="Vertical" Width="150" Background="LightGray">
-                <ComboBox Margin="15,30,22,30" RenderTransformOrigin="0.464,0.536">
+            <StackPanel x:Name="myStack" Orientation="Vertical" Width="150" Background="LightGray">
+                <ComboBox Margin="15,35,22,30" RenderTransformOrigin="0.464,0.536">
                     <ComboBoxItem IsSelected="True">2</ComboBoxItem>
                     <ComboBoxItem >4</ComboBoxItem>
                     <ComboBoxItem>6</ComboBoxItem>
                 </ComboBox>
-                <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Red" IsChecked="True"/>
-                <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Blue" />
-                <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Olive" />
-                <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Orchid" />
-                <RadioButton GroupName="rb" Margin="15,0,0,0" Content="Turquoise" />
-
-                <Button x:Name="runBtn" Margin="15,180,22,0" Click="runBtn_Click">Run</Button>
+                <GroupBox x:Name="myGroupBox" Header="Point Color" Padding="5" Margin="5,40,5,5" >
+                    <StackPanel>
+                        <RadioButton x:Name="rbRed" Content="Red" />
+                        <RadioButton x:Name="rbBlue" Content="Blue" IsChecked="True" />
+                        <RadioButton x:Name="rbOlive" Content="Olive" />
+                        <RadioButton x:Name="rbOrchid" Content="Orchid" />
+                        <RadioButton x:Name="rbTurquoise" Content="Turquoise" />
+                    </StackPanel>
+                </GroupBox>
+                <Button x:Name="runBtn" Margin="15,100,22,0" Click="runBtn_Click" Content="Run"/>
                 <Button x:Name="clearBtn" Margin="15,10,22,0" Click="clearBtn_Click">Clear</Button>
             </StackPanel>
             <Canvas x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
