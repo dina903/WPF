@@ -20,7 +20,6 @@ using System.Drawing;
 using System.ComponentModel;
 using System.Timers;
 using System.Runtime.InteropServices;
-using System.Windows.Media.Imaging;
 
 namespace WPF
 {
@@ -36,7 +35,7 @@ namespace WPF
 
         private myCustomPoint myP;
         private Point last;
-        private int radius = 3;
+        private int radius = 2;
         private Color myColor = Colors.Blue;
 
         //About menu item onClick listener
@@ -61,18 +60,17 @@ namespace WPF
         {
             // Save the point.
             cp.Add(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y));
-
+            radius = checkSize(); // check combobox for current value
             // Draw the new point.
             if (cp.Count == 1)
                 main_canvas.Children.Clear();
             Ellipse controlPoint = new Ellipse();
             checkColor();
-            controlPoint.Stroke = new SolidColorBrush(myColor);
-            controlPoint.StrokeThickness = 3;
+            controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
            
-            myP = new myCustomPoint(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y), myColor);
+            myP = new myCustomPoint(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y), myColor, radius);
             customeList.Add(myP);
             
             Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - radius);
@@ -104,6 +102,13 @@ namespace WPF
             }
         }
 
+        private int checkSize()
+        {
+            string selected = myComboBox.Text;
+            int r = Convert.ToInt32(selected);
+            return (r);
+        }
+
 
 
         //Run Button onClick code
@@ -126,46 +131,37 @@ namespace WPF
                 // Draw the corners.
                 foreach (Point pt in cp)
                 {
-                    Ellipse whiteSpace = new Ellipse();
-                    whiteSpace.Width = 2 * radius;
-                    whiteSpace.Height = 2 * radius;
-                    whiteSpace.Fill = new SolidColorBrush(Colors.White);
-                    Canvas.SetLeft(whiteSpace, pt.X - radius);
-                    Canvas.SetTop(whiteSpace, pt.Y - radius);
-                    main_canvas.Children.Add(whiteSpace);
-
+                    
                     Ellipse ellipse = new Ellipse();
                     ellipse.Width = 2 * radius;
                     ellipse.Height = 2 * radius;
-                    ellipse.Stroke = new SolidColorBrush(Colors.Black);
-                    ellipse.StrokeThickness = 2;
-                    //whiteSpace.Fill = new SolidColorBrush(Colors.White);
+                    ellipse.Fill = new SolidColorBrush(Colors.Black);
                     Canvas.SetLeft(ellipse, pt.X - radius);
                     Canvas.SetTop(ellipse, pt.Y - radius);
                     main_canvas.Children.Add(ellipse);
-
-                    // Draw points.
-                    Random rand = new Random();
-                    last = cp[rand.Next(0, cp.Count)];
-                    // Draw 2000 points.
-                    for (int i = 1; i <= 2000; i++)
-                    {
-                        int j = rand.Next(0, cp.Count);
-                        last = new Point((last.X + cp[j].X) / 2, (last.Y + cp[j].Y) / 2);
-
-                        Ellipse myElli = new Ellipse();
-                        Color parentColor = customeList[j].pColor;
-                       
-                        myElli.Stroke = new SolidColorBrush(parentColor);
-                        myElli.StrokeThickness = 2;
-                        Canvas.SetLeft(myElli, last.X);
-                        Canvas.SetTop(myElli, last.Y);
-                        main_canvas.Children.Add(myElli);
-
-                    }
                 }
 
+                // Draw points.
+                Random rand = new Random();
+                last = cp[rand.Next(0, cp.Count)];
+                // Draw 2000 points.
+                for (int i = 1; i <= 2000; i++)
+                {
+                    int j = rand.Next(0, cp.Count);
+                    last = new Point((last.X + cp[j].X) / 2, (last.Y + cp[j].Y) / 2);
 
+                    Ellipse myElli = new Ellipse();
+                    Color parentColor = customeList[j].pColor;
+
+                    myElli.Fill = new SolidColorBrush(parentColor);
+                    myElli.Width = 2 * customeList[j].pRadius;
+                    myElli.Height = 2 * customeList[j].pRadius;
+
+                    Canvas.SetLeft(myElli, last.X - customeList[j].pRadius);
+                    Canvas.SetTop(myElli, last.Y - customeList[j].pRadius);
+                    main_canvas.Children.Add(myElli);
+
+                }
             }
         }
 
@@ -181,11 +177,13 @@ public class myCustomPoint
 {
     public Point coordinate { get; private set; }
     public Color pColor { get; private set; }
+    public int pRadius { get; private set; }
 
-    public myCustomPoint(Point p, Color c)
+    public myCustomPoint(Point p, Color c, int rad)
     {
         coordinate = p;
         pColor = c;
+        pRadius = rad;
     }
     //Other properties, methods, events...
 }
