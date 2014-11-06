@@ -32,11 +32,12 @@ namespace WPF
         //The selected points.
         //private List<Point> cp = new List<Point>();
         private List<myCustomPoint> customeList = new List<myCustomPoint>();
-
+        
         private myCustomPoint myP;
         private myCustomPoint last;
         private int radius = 2;
         private Color myColor = Colors.Blue;
+        int selectedRectIndex = 0;
 
         //About menu item onClick listener
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -62,17 +63,19 @@ namespace WPF
             //cp.Add(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y));
             radius = checkSize(); // check combobox for current value
             // Draw the new point.
-            
             Rectangle controlPoint = new Rectangle();
             checkColor();
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Stroke = new SolidColorBrush(Colors.Black);
             controlPoint.StrokeThickness = 2;
-            
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
 
-            myP = new myCustomPoint(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y), myColor, radius);
+            controlPoint.MouseLeftButtonDown += selectRect;
+            controlPoint.MouseLeftButtonUp += releaseRect;
+            controlPoint.MouseMove += mouseMove;
+                        
+            myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, radius);
             customeList.Add(myP);
 
             if (customeList.Count == 1)
@@ -114,7 +117,69 @@ namespace WPF
             return (r);
         }
 
+        //drag and drop
+        Rectangle selectedRect;
+        bool captured = false;
+        double x_shape, x_canvas, y_shape, y_canvas;
+        private void selectRect(object sender, MouseButtonEventArgs e) // canvas MouseLeftButtonDown
+        {
+            selectedRect = (Rectangle) e.Source;
 
+            foreach (myCustomPoint pt in customeList)
+            {
+                if ((Canvas.GetLeft(selectedRect) == pt.xCoordinate - 4) && (Canvas.GetTop(selectedRect) == pt.yCoordinate - 4))
+                {
+                    selectedRectIndex = customeList.IndexOf(pt);
+                    Debug.WriteLine("Index of selected point is: " + selectedRectIndex);                    
+                }
+                
+            }
+
+            if (selectedRect != null)
+            {
+                Mouse.Capture(selectedRect);
+                
+                captured = true;
+                x_shape = Canvas.GetLeft(selectedRect);
+                x_canvas = e.GetPosition(main_canvas).X;
+                y_shape = Canvas.GetTop(selectedRect);
+                y_canvas = e.GetPosition(main_canvas).Y;
+                
+                //statusLabel.Content = "Selected " + selectedEllipse.Name;
+            }
+            
+        }
+        // point MouseLeftButtonUp 
+        private void releaseRect(object sender, MouseButtonEventArgs e)
+        {
+            e.OriginalSource.ToString();
+            if (captured)
+            {
+                Mouse.Capture(null);
+                captured = false;
+            }
+
+        }
+
+        //mouse move
+        private void mouseMove(object sender, MouseEventArgs e)
+        {
+            double x = e.GetPosition(main_canvas).X;
+            double y = e.GetPosition(main_canvas).Y;
+            
+            if (captured)
+            { // rect has mouse capture
+                x_shape += x - x_canvas;
+                Canvas.SetLeft(selectedRect, x_shape);
+                x_canvas = x;
+                y_shape += y - y_canvas;
+                Canvas.SetTop(selectedRect, y_shape);
+                y_canvas = y;
+                customeList[selectedRectIndex].xCoordinate = x_shape;
+                customeList[selectedRectIndex].yCoordinate = y_shape;
+            }
+        }
+        
 
         //Run Button onClick code
         private void runBtn_Click(object sender, RoutedEventArgs e)
@@ -157,17 +222,16 @@ namespace WPF
                     Color parentColor = customeList[j].pColor;
                     int parentRadius = customeList[j].pRadius;
 
-                    last = new myCustomPoint(new Point((last.coordinate.X + customeList[j].coordinate.X) / 2, (last.coordinate.Y + customeList[j].coordinate.Y) / 2), parentColor, parentRadius);
-
-                   
+                    last = new myCustomPoint(((last.xCoordinate + customeList[j].xCoordinate) / 2), ((last.yCoordinate + customeList[j].yCoordinate) / 2), parentColor, parentRadius);
+                                       
                     Rectangle myRect = new Rectangle();
 
                     myRect.Fill = new SolidColorBrush(parentColor);
                     myRect.Width = customeList[j].pRadius;
                     myRect.Height = customeList[j].pRadius;
 
-                    Canvas.SetLeft(myRect, last.coordinate.X - parentRadius);
-                    Canvas.SetTop(myRect, last.coordinate.Y - parentRadius);
+                    Canvas.SetLeft(myRect, last.xCoordinate - parentRadius);
+                    Canvas.SetTop(myRect, last.yCoordinate - parentRadius);
 
                     main_canvas.Children.Add(myRect);
                 }
@@ -187,15 +251,18 @@ namespace WPF
 //custom object to save parent color and size
 public class myCustomPoint
 {
-    public Point coordinate { get; private set; }
+    public double xCoordinate { get; set; }
+    public double yCoordinate { get; set; }
     public Color pColor { get; private set; }
     public int pRadius { get; private set; }
 
-    public myCustomPoint(Point p, Color c, int rad)
+    public myCustomPoint(double x, double y, Color c, int rad)
     {
-        coordinate = p;
+        xCoordinate = x;
+        yCoordinate = y;
         pColor = c;
         pRadius = rad;
     }
+    
     //Other properties, methods, events...
 }
