@@ -161,9 +161,10 @@ namespace WPF
                     repeatedLine.Y1 = last.coordinate.Y;
                     repeatedLine.X2 = last.coordinate.X + 0.5;
                     repeatedLine.Y2 = last.coordinate.Y + 0.5;
+               
                     
                     repeatedLine.Stroke = new SolidColorBrush(parentColor);
-                    repeatedLine.StrokeThickness = 2 * parentRadius;
+                    repeatedLine.StrokeThickness = parentRadius;
                     main_canvas.Children.Add(repeatedLine);
 
                     /*Ellipse myElli = new Ellipse();
