@@ -130,7 +130,7 @@ namespace WPF
             }
             else
             {
-                // Draw the corners.
+                /*/ Draw the corners.
                 foreach (myCustomPoint pt in customeList)
                 {
                     Rectangle sqr = new Rectangle();
@@ -142,7 +142,7 @@ namespace WPF
                     Canvas.SetLeft(sqr, pt.coordinate.X - 2 * radius);
                     Canvas.SetTop(sqr, pt.coordinate.Y - 2 * radius);
                     main_canvas.Children.Add(sqr);
-                }
+                }*/
 
                 // Draw points.
                 Random rand = new Random();
