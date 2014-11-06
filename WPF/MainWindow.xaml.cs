@@ -66,6 +66,9 @@ namespace WPF
             Rectangle controlPoint = new Rectangle();
             checkColor();
             controlPoint.Fill = new SolidColorBrush(myColor);
+            controlPoint.Stroke = new SolidColorBrush(Colors.Black);
+            controlPoint.StrokeThickness = 2;
+            
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
 
