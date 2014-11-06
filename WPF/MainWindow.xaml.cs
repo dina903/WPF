@@ -69,10 +69,10 @@ namespace WPF
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
-           
+
             myP = new myCustomPoint(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y), myColor, radius);
             customeList.Add(myP);
-            
+
             Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - radius);
             Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - radius);
             main_canvas.Children.Add(controlPoint);
@@ -131,14 +131,14 @@ namespace WPF
                 // Draw the corners.
                 foreach (Point pt in cp)
                 {
-                    
-                    Ellipse ellipse = new Ellipse();
-                    ellipse.Width = 2 * radius;
-                    ellipse.Height = 2 * radius;
-                    ellipse.Fill = new SolidColorBrush(Colors.Black);
-                    Canvas.SetLeft(ellipse, pt.X - radius);
-                    Canvas.SetTop(ellipse, pt.Y - radius);
-                    main_canvas.Children.Add(ellipse);
+                    Rectangle sqr = new Rectangle();
+                    sqr.Width = 2 * radius;
+                    sqr.Height = 2 * radius;
+                    sqr.Fill = new SolidColorBrush(Colors.Black);
+
+                    Canvas.SetLeft(sqr, pt.X - 2 * radius);
+                    Canvas.SetTop(sqr, pt.Y - 2 * radius);
+                    main_canvas.Children.Add(sqr);
                 }
 
                 // Draw points.
@@ -159,10 +159,13 @@ namespace WPF
 
                     Canvas.SetLeft(myElli, last.X - customeList[j].pRadius);
                     Canvas.SetTop(myElli, last.Y - customeList[j].pRadius);
+
                     main_canvas.Children.Add(myElli);
 
                 }
+
             }
+
         }
 
         private void clearBtn_Click(object sender, RoutedEventArgs e)
@@ -173,6 +176,7 @@ namespace WPF
         }
     }
 }
+//custom object to save parent color and size
 public class myCustomPoint
 {
     public Point coordinate { get; private set; }

@@ -14,8 +14,11 @@
             <StackPanel x:Name="myStack" Orientation="Vertical" Width="150" Background="LightGray">
                 <Label Content="Choose a size:" Margin="12,35,22,0" FontSize="14" FontWeight="Medium"/>
                 <ComboBox x:Name="myComboBox" FontSize="14" FontWeight="Medium" Margin="15,5,22,30" RenderTransformOrigin="0.464,0.536">
+                    <ComboBoxItem>1</ComboBoxItem>
                     <ComboBoxItem IsSelected="True">2</ComboBoxItem>
+                    <ComboBoxItem>3</ComboBoxItem>
                     <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
                     <ComboBoxItem>6</ComboBoxItem>
                 </ComboBox>
                 <GroupBox x:Name="myGroupBox" FontSize="14"  FontWeight="Bold" Padding="5" Margin="5,40,5,5" Background="WhiteSmoke">
@@ -27,12 +30,19 @@
                         <RadioButton x:Name="rbTurquoise" Content="Turquoise" Foreground ="Turquoise" />
                     </StackPanel>
                 </GroupBox>
-                <Button x:Name="runBtn" Margin="15,100,22,0" Click="runBtn_Click" Content="Run"/>
+                <Button x:Name="runBtn" Margin="15,80,22,0" Click="runBtn_Click" Content="Run"/>
                 <Button x:Name="clearBtn" Margin="15,10,22,0" Click="clearBtn_Click">Clear</Button>
             </StackPanel>
             <Canvas x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
-                <!--This doesnt resize so be careful-->
-
+                <Canvas.Style>
+                    <Style TargetType="{x:Type Canvas}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" >
+                                <Setter Property="Cursor" Value="Pen" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Canvas.Style>
             </Canvas>
         </DockPanel>
     </Grid>
