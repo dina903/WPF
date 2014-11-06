@@ -63,7 +63,7 @@ namespace WPF
             radius = checkSize(); // check combobox for current value
             // Draw the new point.
             
-            Ellipse controlPoint = new Ellipse();
+            Rectangle controlPoint = new Rectangle();
             checkColor();
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Width = 2 * radius;
@@ -75,8 +75,8 @@ namespace WPF
             if (customeList.Count == 1)
                 main_canvas.Children.Clear();
 
-            Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - radius);
-            Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - radius);
+            Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * radius);
+            Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * radius);
             main_canvas.Children.Add(controlPoint);
         }
 
@@ -156,27 +156,17 @@ namespace WPF
 
                     last = new myCustomPoint(new Point((last.coordinate.X + customeList[j].coordinate.X) / 2, (last.coordinate.Y + customeList[j].coordinate.Y) / 2), parentColor, parentRadius);
 
-                    Line repeatedLine = new Line();
-                    repeatedLine.X1 = last.coordinate.X;
-                    repeatedLine.Y1 = last.coordinate.Y;
-                    repeatedLine.X2 = last.coordinate.X + 0.5;
-                    repeatedLine.Y2 = last.coordinate.Y + 0.5;
-               
-                    
-                    repeatedLine.Stroke = new SolidColorBrush(parentColor);
-                    repeatedLine.StrokeThickness = parentRadius;
-                    main_canvas.Children.Add(repeatedLine);
+                   
+                    Rectangle myRect = new Rectangle();
 
-                    /*Ellipse myElli = new Ellipse();
+                    myRect.Fill = new SolidColorBrush(parentColor);
+                    myRect.Width = customeList[j].pRadius;
+                    myRect.Height = customeList[j].pRadius;
 
-                    myElli.Fill = new SolidColorBrush(parentColor);
-                    myElli.Width = 2 * customeList[j].pRadius;
-                    myElli.Height = 2 * customeList[j].pRadius;
+                    Canvas.SetLeft(myRect, last.coordinate.X - parentRadius);
+                    Canvas.SetTop(myRect, last.coordinate.Y - parentRadius);
 
-                    Canvas.SetLeft(myElli, last.coordinate.X - parentRadius);
-                    Canvas.SetTop(myElli, last.coordinate.Y - parentRadius);
-
-                    main_canvas.Children.Add(myElli);*/
+                    main_canvas.Children.Add(myRect);
                 }
 
             }
