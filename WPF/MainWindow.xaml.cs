@@ -32,7 +32,7 @@ namespace WPF
         //The selected points.
         //private List<Point> cp = new List<Point>();
         private List<myCustomPoint> customeList = new List<myCustomPoint>();
-        
+
         private myCustomPoint myP;
         private myCustomPoint last;
         private int radius = 2;
@@ -74,7 +74,7 @@ namespace WPF
             controlPoint.MouseLeftButtonDown += selectRect;
             controlPoint.MouseLeftButtonUp += releaseRect;
             controlPoint.MouseMove += mouseMove;
-                        
+
             myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, radius);
             customeList.Add(myP);
 
@@ -123,33 +123,33 @@ namespace WPF
         double x_shape, x_canvas, y_shape, y_canvas;
         private void selectRect(object sender, MouseButtonEventArgs e) // canvas MouseLeftButtonDown
         {
-            selectedRect = (Rectangle) e.Source;
+            selectedRect = (Rectangle)e.Source;
 
             foreach (myCustomPoint pt in customeList)
             {
-                if ((Canvas.GetLeft(selectedRect) == pt.xCoordinate - 4) && (Canvas.GetTop(selectedRect) == pt.yCoordinate - 4))
+                if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pRadius))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pRadius))))
                 {
                     selectedRectIndex = customeList.IndexOf(pt);
-                    Debug.WriteLine("Index of selected point is: " + selectedRectIndex);                    
+                    Debug.WriteLine("Index of selected point is: " + selectedRectIndex);
                 }
-                
-            }
 
+            }
+           
             if (selectedRect != null)
             {
                 Mouse.Capture(selectedRect);
-                
+
                 captured = true;
                 x_shape = Canvas.GetLeft(selectedRect);
                 x_canvas = e.GetPosition(main_canvas).X;
                 y_shape = Canvas.GetTop(selectedRect);
                 y_canvas = e.GetPosition(main_canvas).Y;
-                
+
                 //statusLabel.Content = "Selected " + selectedEllipse.Name;
             }
-            
+
         }
-        // point MouseLeftButtonUp 
+        //point MouseLeftButtonUp 
         private void releaseRect(object sender, MouseButtonEventArgs e)
         {
             e.OriginalSource.ToString();
@@ -158,7 +158,8 @@ namespace WPF
                 Mouse.Capture(null);
                 captured = false;
             }
-
+            main_canvas.Children.Clear();
+            redrawPoints();
         }
 
         //mouse move
@@ -166,7 +167,7 @@ namespace WPF
         {
             double x = e.GetPosition(main_canvas).X;
             double y = e.GetPosition(main_canvas).Y;
-            
+
             if (captured)
             { // rect has mouse capture
                 x_shape += x - x_canvas;
@@ -179,7 +180,7 @@ namespace WPF
                 customeList[selectedRectIndex].yCoordinate = y_shape;
             }
         }
-        
+
 
         //Run Button onClick code
         private void runBtn_Click(object sender, RoutedEventArgs e)
@@ -198,19 +199,6 @@ namespace WPF
             }
             else
             {
-                /*/ Draw the corners.
-                foreach (myCustomPoint pt in customeList)
-                {
-                    Rectangle sqr = new Rectangle();
-                    sqr.Width = 2 * radius;
-                    sqr.Height = 2 * radius;
-
-                    sqr.Fill = new SolidColorBrush(pt.pColor);
-
-                    Canvas.SetLeft(sqr, pt.coordinate.X - 2 * radius);
-                    Canvas.SetTop(sqr, pt.coordinate.Y - 2 * radius);
-                    main_canvas.Children.Add(sqr);
-                }*/
 
                 // Draw points.
                 Random rand = new Random();
@@ -223,7 +211,7 @@ namespace WPF
                     int parentRadius = customeList[j].pRadius;
 
                     last = new myCustomPoint(((last.xCoordinate + customeList[j].xCoordinate) / 2), ((last.yCoordinate + customeList[j].yCoordinate) / 2), parentColor, parentRadius);
-                                       
+
                     Rectangle myRect = new Rectangle();
 
                     myRect.Fill = new SolidColorBrush(parentColor);
@@ -236,6 +224,51 @@ namespace WPF
                     main_canvas.Children.Add(myRect);
                 }
 
+            }
+
+        }
+
+        private void redrawPoints()
+        {
+            // Draw the corners.
+            foreach (myCustomPoint pt in customeList)
+            {
+                Rectangle sqr = new Rectangle();
+                sqr.Width = 2 * radius;
+                sqr.Height = 2 * radius;
+
+                sqr.Fill = new SolidColorBrush(pt.pColor);
+                sqr.Stroke = new SolidColorBrush(Colors.Black);
+                sqr.StrokeThickness = 2;
+                Canvas.SetLeft(sqr, pt.xCoordinate - 2 * radius);
+                Canvas.SetTop(sqr, pt.yCoordinate - 2 * radius);
+                sqr.MouseLeftButtonDown += selectRect;
+                sqr.MouseLeftButtonUp += releaseRect;
+                sqr.MouseMove += mouseMove;
+                main_canvas.Children.Add(sqr);
+            }
+            // Draw points.
+            Random rand = new Random();
+            last = customeList[rand.Next(0, customeList.Count)];
+            // Draw 2000 points.
+            for (int i = 1; i <= 2000; i++)
+            {
+                int j = rand.Next(0, customeList.Count);
+                Color parentColor = customeList[j].pColor;
+                int parentRadius = customeList[j].pRadius;
+
+                last = new myCustomPoint(((last.xCoordinate + customeList[j].xCoordinate) / 2), ((last.yCoordinate + customeList[j].yCoordinate) / 2), parentColor, parentRadius);
+
+                Rectangle myRect = new Rectangle();
+
+                myRect.Fill = new SolidColorBrush(parentColor);
+                myRect.Width = customeList[j].pRadius;
+                myRect.Height = customeList[j].pRadius;
+
+                Canvas.SetLeft(myRect, last.xCoordinate - parentRadius);
+                Canvas.SetTop(myRect, last.yCoordinate - parentRadius);
+
+                main_canvas.Children.Add(myRect);
             }
 
         }
@@ -263,6 +296,6 @@ public class myCustomPoint
         pColor = c;
         pRadius = rad;
     }
-    
+
     //Other properties, methods, events...
 }
