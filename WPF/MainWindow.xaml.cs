@@ -155,7 +155,7 @@ namespace WPF
 
             foreach (myCustomPoint pt in customeList)
             {
-                if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pRadius))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pRadius))))
+                if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pSize))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pSize))))
                 {
                     selectedRectIndex = customeList.IndexOf(pt);
                     Debug.WriteLine("Index of selected point is: " + selectedRectIndex);
@@ -236,15 +236,15 @@ namespace WPF
                 {
                     int j = rand.Next(0, customeList.Count);
                     Color parentColor = customeList[j].pColor;
-                    int parentRadius = customeList[j].pRadius;
+                    int parentRadius = customeList[j].pSize;
 
                     last = new myCustomPoint(((last.xCoordinate + customeList[j].xCoordinate) / 2), ((last.yCoordinate + customeList[j].yCoordinate) / 2), parentColor, parentRadius);
 
                     Rectangle myRect = new Rectangle();
 
                     myRect.Fill = new SolidColorBrush(parentColor);
-                    myRect.Width = customeList[j].pRadius;
-                    myRect.Height = customeList[j].pRadius;
+                    myRect.Width = customeList[j].pSize;
+                    myRect.Height = customeList[j].pSize;
 
                     Canvas.SetLeft(myRect, last.xCoordinate - parentRadius);
                     Canvas.SetTop(myRect, last.yCoordinate - parentRadius);
@@ -283,15 +283,15 @@ namespace WPF
             {
                 int j = rand.Next(0, customeList.Count);
                 Color parentColor = customeList[j].pColor;
-                int parentRadius = customeList[j].pRadius;
+                int parentRadius = customeList[j].pSize;
 
                 last = new myCustomPoint(((last.xCoordinate + customeList[j].xCoordinate) / 2), ((last.yCoordinate + customeList[j].yCoordinate) / 2), parentColor, parentRadius);
 
                 Rectangle myRect = new Rectangle();
 
                 myRect.Fill = new SolidColorBrush(parentColor);
-                myRect.Width = customeList[j].pRadius;
-                myRect.Height = customeList[j].pRadius;
+                myRect.Width = customeList[j].pSize;
+                myRect.Height = customeList[j].pSize;
 
                 Canvas.SetLeft(myRect, last.xCoordinate - parentRadius);
                 Canvas.SetTop(myRect, last.yCoordinate - parentRadius);
@@ -315,14 +315,14 @@ public class myCustomPoint
     public double xCoordinate { get; set; }
     public double yCoordinate { get; set; }
     public Color pColor { get; private set; }
-    public int pRadius { get; private set; }
+    public int pSize { get; private set; }
 
     public myCustomPoint(double x, double y, Color c, int rad)
     {
         xCoordinate = x;
         yCoordinate = y;
         pColor = c;
-        pRadius = rad;
+        pSize = rad;
     }
 
     //Other properties, methods, events...
