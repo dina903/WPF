@@ -65,9 +65,10 @@ namespace WPF
             // Draw the new point.
             Rectangle controlPoint = new Rectangle();
             checkColor();
+            colorMixer();//to check the color mixer functionality
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Stroke = new SolidColorBrush(Colors.Black);
-            controlPoint.StrokeThickness = 2;
+            controlPoint.StrokeThickness = 1.5;
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
 
@@ -134,7 +135,7 @@ namespace WPF
                 }
 
             }
-           
+
             if (selectedRect != null)
             {
                 Mouse.Capture(selectedRect);
@@ -239,7 +240,7 @@ namespace WPF
 
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
-                sqr.StrokeThickness = 2;
+                sqr.StrokeThickness = 1.5;
                 Canvas.SetLeft(sqr, pt.xCoordinate - 2 * radius);
                 Canvas.SetTop(sqr, pt.yCoordinate - 2 * radius);
                 sqr.MouseLeftButtonDown += selectRect;
@@ -278,6 +279,18 @@ namespace WPF
             main_canvas.Children.Clear();
             customeList.Clear();
             //cp.Clear();
+        }
+
+        //RGB color
+        private void colorMixer()
+        {
+            Color myRgbColor = new Color();
+            string rSelected = redColorPicker.Text;
+            string gSelected = greenColorPicker.Text;
+            string bSelected = blueColorPicker.Text;
+            myRgbColor = Color.FromRgb(Convert.ToByte(rSelected), Convert.ToByte(gSelected), Convert.ToByte(bSelected));
+            // myColor = myRgbColor;
+            customColor.Background = new SolidColorBrush(myRgbColor);
         }
     }
 }
