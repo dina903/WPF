@@ -32,7 +32,7 @@ namespace WPF
         //The selected points.
         //private List<Point> cp = new List<Point>();
         private List<myCustomPoint> customeList = new List<myCustomPoint>();
-
+        Color myRgbColor = new Color();
         private myCustomPoint myP;
         private myCustomPoint last;
         private int radius = 2;
@@ -71,20 +71,28 @@ namespace WPF
             controlPoint.StrokeThickness = 1.5;
             controlPoint.Width = 2 * radius;
             controlPoint.Height = 2 * radius;
-
             controlPoint.MouseLeftButtonDown += selectRect;
             controlPoint.MouseLeftButtonUp += releaseRect;
             controlPoint.MouseMove += mouseMove;
+            if (customeList.Count <= 5)
+            {
+                myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, radius);
+                customeList.Add(myP);
 
-            myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, radius);
-            customeList.Add(myP);
+                if (customeList.Count == 1)
+                    main_canvas.Children.Clear();
 
-            if (customeList.Count == 1)
-                main_canvas.Children.Clear();
+                Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * radius);
+                Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * radius);
+                main_canvas.Children.Add(controlPoint);
+            }
+            else
+            {
+                var result = MessageBox.Show(this, "Ooops! No More than Six Points Allowed", "Press the Run Button", MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
+            }
 
-            Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * radius);
-            Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * radius);
-            main_canvas.Children.Add(controlPoint);
+           
         }
 
         private void checkColor()
@@ -109,6 +117,25 @@ namespace WPF
             {
                 myColor = Colors.Blue;
             }
+            else if (rbCustomColor.IsChecked == true)
+            {
+                colorMixer();
+                myColor = myRgbColor;
+            }
+        }
+
+        //RGB color
+        private void colorMixer()
+        {
+            string rSelected = redColorPicker.Text;
+            string gSelected = greenColorPicker.Text;
+            string bSelected = blueColorPicker.Text;
+            myRgbColor = Color.FromRgb(Convert.ToByte(rSelected), Convert.ToByte(gSelected), Convert.ToByte(bSelected));
+            colorMixerContainer.Background = new SolidColorBrush(myRgbColor);
+        }
+        private void comboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            colorMixer();
         }
 
         private int checkSize()
@@ -279,18 +306,6 @@ namespace WPF
             main_canvas.Children.Clear();
             customeList.Clear();
             //cp.Clear();
-        }
-
-        //RGB color
-        private void colorMixer()
-        {
-            Color myRgbColor = new Color();
-            string rSelected = redColorPicker.Text;
-            string gSelected = greenColorPicker.Text;
-            string bSelected = blueColorPicker.Text;
-            myRgbColor = Color.FromRgb(Convert.ToByte(rSelected), Convert.ToByte(gSelected), Convert.ToByte(bSelected));
-            // myColor = myRgbColor;
-            customColor.Background = new SolidColorBrush(myRgbColor);
         }
     }
 }
