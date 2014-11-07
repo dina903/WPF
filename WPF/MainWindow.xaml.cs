@@ -35,7 +35,7 @@ namespace WPF
         Color myRgbColor = new Color();
         private myCustomPoint myP;
         private myCustomPoint last;
-        private int radius = 2;
+        private int ptSize = 2;
         private Color myColor = Colors.Blue;
         int selectedRectIndex = 0;
 
@@ -61,7 +61,7 @@ namespace WPF
         {
             // Save the point.
             //cp.Add(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y));
-            radius = checkSize(); // check combobox for current value
+            ptSize = checkSize(); // check combobox for current value
             // Draw the new point.
             Rectangle controlPoint = new Rectangle();
             checkColor();
@@ -69,21 +69,21 @@ namespace WPF
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Stroke = new SolidColorBrush(Colors.Black);
             controlPoint.StrokeThickness = 1.5;
-            controlPoint.Width = 2 * radius;
-            controlPoint.Height = 2 * radius;
+            controlPoint.Width = 2 * ptSize;
+            controlPoint.Height = 2 * ptSize;
             controlPoint.MouseLeftButtonDown += selectRect;
             controlPoint.MouseLeftButtonUp += releaseRect;
             controlPoint.MouseMove += mouseMove;
             if (customeList.Count <= 5)
             {
-                myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, radius);
+                myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, ptSize);
                 customeList.Add(myP);
 
                 if (customeList.Count == 1)
                     main_canvas.Children.Clear();
 
-                Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * radius);
-                Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * radius);
+                Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * ptSize);
+                Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * ptSize);
                 main_canvas.Children.Add(controlPoint);
             }
             else
@@ -262,14 +262,14 @@ namespace WPF
             foreach (myCustomPoint pt in customeList)
             {
                 Rectangle sqr = new Rectangle();
-                sqr.Width = 2 * radius;
-                sqr.Height = 2 * radius;
+                sqr.Width = 2 * ptSize;
+                sqr.Height = 2 * ptSize;
 
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
                 sqr.StrokeThickness = 1.5;
-                Canvas.SetLeft(sqr, pt.xCoordinate - 2 * radius);
-                Canvas.SetTop(sqr, pt.yCoordinate - 2 * radius);
+                Canvas.SetLeft(sqr, pt.xCoordinate - 2 * ptSize);
+                Canvas.SetTop(sqr, pt.yCoordinate - 2 * ptSize);
                 sqr.MouseLeftButtonDown += selectRect;
                 sqr.MouseLeftButtonUp += releaseRect;
                 sqr.MouseMove += mouseMove;
