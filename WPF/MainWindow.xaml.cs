@@ -37,7 +37,7 @@ namespace WPF
         private myCustomPoint last;
         private int ptSize = 2;
         private Color myColor = Colors.Blue;
-        int selectedRectIndex = 0;
+        int selectedRectIndex;
 
         //About menu item onClick listener
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -156,6 +156,8 @@ namespace WPF
             foreach (myCustomPoint pt in customeList)
             {
                 Debug.WriteLine("Point is: " + (pt.xCoordinate - (2 * pt.pSize)) + ", " + (pt.yCoordinate - (2 * pt.pSize)));
+                Debug.WriteLine("Canvas Point is: " + Canvas.GetLeft(selectedRect) + ", " + Canvas.GetTop(selectedRect));
+
                 if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pSize))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pSize))))
                 {
                     selectedRectIndex = customeList.IndexOf(pt);
@@ -163,18 +165,15 @@ namespace WPF
                 }
 
             }
-            Debug.WriteLine("Canvas Point is: " + Canvas.GetLeft(selectedRect) + ", " + Canvas.GetTop(selectedRect));
+            
             if (selectedRect != null)
             {
                 Mouse.Capture(selectedRect);
-
                 captured = true;
                 x_shape = Canvas.GetLeft(selectedRect);
                 x_canvas = e.GetPosition(main_canvas).X;
                 y_shape = Canvas.GetTop(selectedRect);
                 y_canvas = e.GetPosition(main_canvas).Y;
-
-                //statusLabel.Content = "Selected " + selectedEllipse.Name;
             }
 
         }
@@ -187,8 +186,9 @@ namespace WPF
                 Mouse.Capture(null);
                 captured = false;
             }
-
-
+            Debug.WriteLine("Index Redrawn is: " + selectedRectIndex);
+            //customeList[selectedRectIndex].xCoordinate = x_shape;
+            //customeList[selectedRectIndex].yCoordinate = y_shape;
             main_canvas.Children.Clear();
             redrawPoints();
         }
@@ -265,14 +265,14 @@ namespace WPF
             foreach (myCustomPoint pt in customeList)
             {
                 Rectangle sqr = new Rectangle();
-                sqr.Width = 2 * ptSize;
-                sqr.Height = 2 * ptSize;
+                sqr.Width = 2 * pt.pSize;
+                sqr.Height = 2 * pt.pSize;
         
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
                 sqr.StrokeThickness = 2;
-                Canvas.SetLeft(sqr, pt.xCoordinate - (2 * ptSize));
-                Canvas.SetTop(sqr, pt.yCoordinate - (2 * ptSize));
+                Canvas.SetLeft(sqr, pt.xCoordinate - (2 * pt.pSize));
+                Canvas.SetTop(sqr, pt.yCoordinate - (2 * pt.pSize));
                 sqr.MouseLeftButtonDown += selectRect;
                 sqr.MouseLeftButtonUp += releaseRect;
                 sqr.MouseMove += mouseMove;
