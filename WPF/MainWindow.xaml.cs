@@ -187,6 +187,8 @@ namespace WPF
                 Mouse.Capture(null);
                 captured = false;
             }
+
+
             main_canvas.Children.Clear();
             redrawPoints();
         }
