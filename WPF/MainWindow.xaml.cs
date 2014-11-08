@@ -82,8 +82,8 @@ namespace WPF
                 if (customeList.Count == 1)
                     main_canvas.Children.Clear();
 
-                Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - 2 * ptSize);
-                Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - 2 * ptSize);
+                Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - (2 * ptSize));
+                Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - (2 * ptSize));
                 main_canvas.Children.Add(controlPoint);
             }
             else
@@ -155,6 +155,7 @@ namespace WPF
 
             foreach (myCustomPoint pt in customeList)
             {
+                Debug.WriteLine("Point is: " + (pt.xCoordinate - (2 * pt.pSize)) + ", " + (pt.yCoordinate - (2 * pt.pSize)));
                 if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pSize))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pSize))))
                 {
                     selectedRectIndex = customeList.IndexOf(pt);
@@ -162,7 +163,7 @@ namespace WPF
                 }
 
             }
-
+            Debug.WriteLine("Canvas Point is: " + Canvas.GetLeft(selectedRect) + ", " + Canvas.GetTop(selectedRect));
             if (selectedRect != null)
             {
                 Mouse.Capture(selectedRect);
@@ -264,12 +265,12 @@ namespace WPF
                 Rectangle sqr = new Rectangle();
                 sqr.Width = 2 * ptSize;
                 sqr.Height = 2 * ptSize;
-
+        
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
                 sqr.StrokeThickness = 2;
-                Canvas.SetLeft(sqr, pt.xCoordinate - 2 * ptSize);
-                Canvas.SetTop(sqr, pt.yCoordinate - 2 * ptSize);
+                Canvas.SetLeft(sqr, pt.xCoordinate - (2 * ptSize));
+                Canvas.SetTop(sqr, pt.yCoordinate - (2 * ptSize));
                 sqr.MouseLeftButtonDown += selectRect;
                 sqr.MouseLeftButtonUp += releaseRect;
                 sqr.MouseMove += mouseMove;
