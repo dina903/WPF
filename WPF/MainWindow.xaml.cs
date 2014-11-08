@@ -68,7 +68,7 @@ namespace WPF
             colorMixer();//to check the color mixer functionality
             controlPoint.Fill = new SolidColorBrush(myColor);
             controlPoint.Stroke = new SolidColorBrush(Colors.Black);
-            controlPoint.StrokeThickness = 1.5;
+            controlPoint.StrokeThickness = 2;
             controlPoint.Width = 2 * ptSize;
             controlPoint.Height = 2 * ptSize;
             controlPoint.MouseLeftButtonDown += selectRect;
@@ -267,7 +267,7 @@ namespace WPF
 
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
-                sqr.StrokeThickness = 1.5;
+                sqr.StrokeThickness = 2;
                 Canvas.SetLeft(sqr, pt.xCoordinate - 2 * ptSize);
                 Canvas.SetTop(sqr, pt.yCoordinate - 2 * ptSize);
                 sqr.MouseLeftButtonDown += selectRect;
