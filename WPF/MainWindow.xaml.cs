@@ -28,6 +28,18 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
+            //Initilaize the combo boxes of color picker
+            for (int i = 0; i < 256; i++)
+            {
+                comboContent.Add(i.ToString());
+            }
+            initializeColor(redColorPicker);
+            redColorPicker.SelectedIndex = 255;
+            initializeColor(greenColorPicker);
+            greenColorPicker.SelectedIndex = 0;
+            initializeColor(blueColorPicker);
+            blueColorPicker.SelectedIndex = 0;
+            colorMixer();
         }
         //The selected points.
         //private List<Point> cp = new List<Point>();
@@ -38,14 +50,22 @@ namespace WPF
         private int ptSize = 2;
         private Color myColor = Colors.Blue;
         int selectedRectIndex;
+        List<string> comboContent = new List<string>();
 
+        private void initializeColor(ComboBox box)
+        {
+            foreach(string s in comboContent)
+            {
+                box.Items.Add(s);    
+            }
+        }
         //About menu item onClick listener
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             String message = "WPF Sierpinski Attractor:\nMembers:\n1- Dina Najeeb\n\tE-mail: dina_2552@yahoo.com\n2- " +
             "Karoon Gayzagian\n\tE-mail:karoon80@hotmail.com";
             var result = MessageBox.Show(
-                message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+                message, "About Authors", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         //Usage menu item onClick listener
@@ -53,7 +73,7 @@ namespace WPF
         {
             String message = "";
             var result = MessageBox.Show(
-               message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+               message, "How to use?", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         //Right Mouse Button Up Event handler
@@ -88,7 +108,7 @@ namespace WPF
             }
             else
             {
-                var result = MessageBox.Show(this, "Ooops! No More than Six Points Allowed", "Press the Run Button", MessageBoxButton.OK,
+                var result = MessageBox.Show(this, "Ooops! No More than Six Points Allowed!!\nPress Clear Button", "Error!", MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
             }
 
@@ -97,7 +117,7 @@ namespace WPF
 
         private void checkColor()
         {
-            if (rbRed.IsChecked == true)
+          /*  if (rbRed.IsChecked == true)
             {
                 myColor = Colors.Red;
             }
@@ -116,12 +136,12 @@ namespace WPF
             else if (rbBlue.IsChecked == true)
             {
                 myColor = Colors.Blue;
-            }
-            else if (rbCustomColor.IsChecked == true)
-            {
+            }*/
+          //  else if (rbCustomColor.IsChecked == true)
+           // {
                 colorMixer();
                 myColor = myRgbColor;
-            }
+            //}
         }
 
         //RGB color

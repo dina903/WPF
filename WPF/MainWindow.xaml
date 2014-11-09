@@ -23,33 +23,19 @@
                 </ComboBox>
                 <GroupBox x:Name="myGroupBox" FontSize="14"  FontWeight="Bold" Padding="5" Margin="5,90,5,5" Background="WhiteSmoke">
                     <StackPanel>
-                        <RadioButton x:Name="rbRed" Content="Red" Foreground ="Red " />
-                        <RadioButton x:Name="rbBlue" Content="Blue" Foreground ="Blue" IsChecked="True" />
-                        <RadioButton x:Name="rbOlive" Content="Olive" Foreground ="Olive" />
-                        <RadioButton x:Name="rbOrchid" Content="Orchid" Foreground ="Orchid" />
-                        <RadioButton x:Name="rbTurquoise" Content="Turquoise" Foreground ="Turquoise" />
-                        <RadioButton x:Name="rbCustomColor" Content="Custom Color" Foreground ="Black" />
-                        <StackPanel Background="WhiteSmoke">
+                        
+                        <StackPanel x:Name="ComboBoxesPanel" Background="WhiteSmoke">
                             <TextBlock Margin="29,0,32,0"><Run Text="Red"/></TextBlock>
                             <ComboBox x:Name="redColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                                <ComboBoxItem Content="0"/>
-                                <ComboBoxItem Content="64"/>
-                                <ComboBoxItem Content="128"/>
-                                <ComboBoxItem IsSelected="True" Content="255"/>
+                               
                             </ComboBox>
                             <TextBlock Margin="29,0,32,0" RenderTransformOrigin="0.033,0.421"><Run Text="Green"/></TextBlock>
                             <ComboBox x:Name="greenColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                                <ComboBoxItem Content="0"/>
-                                <ComboBoxItem Content="64"/>
-                                <ComboBoxItem Content="128"/>
-                                <ComboBoxItem IsSelected="True" Content="255"/>
+                               
                             </ComboBox>
                             <TextBlock Margin="29,0,32,0"><Run Text="Blue"/></TextBlock>
                             <ComboBox x:Name="blueColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                                <ComboBoxItem Content="0"/>
-                                <ComboBoxItem Content="64"/>
-                                <ComboBoxItem Content="128"/>
-                                <ComboBoxItem IsSelected="True" Content="255"/>
+                               
                             </ComboBox>
                         </StackPanel>
                         <StackPanel x:Name="colorMixerContainer" Orientation="Horizontal" Height="33">
