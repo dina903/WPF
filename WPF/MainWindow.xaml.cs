@@ -91,6 +91,7 @@ namespace WPF
             controlPoint.StrokeThickness = 2;
             controlPoint.Width = 2 * ptSize;
             controlPoint.Height = 2 * ptSize;
+
             controlPoint.MouseLeftButtonDown += selectRect;
             controlPoint.MouseLeftButtonUp += releaseRect;
             controlPoint.MouseMove += mouseMove;
@@ -287,7 +288,7 @@ namespace WPF
                 Rectangle sqr = new Rectangle();
                 sqr.Width = 2 * pt.pSize;
                 sqr.Height = 2 * pt.pSize;
-        
+                
                 sqr.Fill = new SolidColorBrush(pt.pColor);
                 sqr.Stroke = new SolidColorBrush(Colors.Black);
                 sqr.StrokeThickness = 2;
