@@ -1,4 +1,10 @@
-﻿using System;
+﻿//Authors
+//Karoon Gayzagian
+    //karoon80@hotmail.com
+//Dina Najeeb
+    //dina_2552@yahoo.com
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +77,15 @@ namespace WPF
         //Usage menu item onClick listener
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            String message = "";
+            String message = "Updated Sierpinski Attractor is  a fractal and attractive fixed set with different shapes, such as triangle, rectangle, etc... ,"+
+                "subdivided recursively into smaller matching shapes. Sierpinski Attractor uses control points that decide the corners of the desired original shape, "+
+                "then draws smaller shapes by drawing 2000 points.\n\nWhat does the GUI include?\n  When the user runs the application, the GUI has two parts:\n  1- Left panel: "+
+                "It allows the user to choose the color and size of each control point, to run the application, and to clear the canvas.\n  "+
+	"2- Canvas: It is the remaining white space where the user chooses the control points' positions.\n\nHow to get the control points?"+
+	"1- Choose the desired size and color for a control point from the left panel. To choose the color,you must choose the levels of Red, Green, and Blue, then review the resulting color."+
+	"\n  2- Right-click on canvas at the desired position to create one control point.\n  3- Repeat steps 1 and 2until you get the corners of the desired shape, such as triangle."+
+	"\nNote: The number of control points is constrained to (3 <= Num_Of_Control_Points <= 6)\n  4- Click Run to get the final drawing.\n  5- Optional: Click Clear to get an empty canvas.\n\n"+
+"Additional Operations:\n  The user can drag any control point and get a new shape according to the new position of the control point(s).";
             var result = MessageBox.Show(
                message, "How to use?", MessageBoxButton.OK, MessageBoxImage.Information);
         }
