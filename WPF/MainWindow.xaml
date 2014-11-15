@@ -3,59 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Sierpinski Attractor" Height="800" Width="1280" ResizeMode="NoResize">
 
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem x:Name="about" Header="_About" Click="MenuItem_Click">
-                </MenuItem>
-                <MenuItem x:Name="usage" DockPanel.Dock="Top" Header ="_Usage" Click="MenuItem_Click_1">
-                </MenuItem>
-            </Menu>
-            <StackPanel x:Name="myStack" Orientation="Vertical" Width="184" Background="LightGray">
-                <Label Content="Choose a size:" Margin="12,35,22,0" FontSize="14" FontWeight="Medium"/>
-                <ComboBox x:Name="myComboBox" FontSize="14" FontWeight="Medium" Margin="15,5,22,30" RenderTransformOrigin="0.464,0.536">
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                    <ComboBoxItem>4</ComboBoxItem>
-                    <ComboBoxItem>5</ComboBoxItem>
-                    <ComboBoxItem>6</ComboBoxItem>
-                </ComboBox>
-                <GroupBox x:Name="myGroupBox" FontSize="14"  FontWeight="Bold" Padding="5" Margin="5,90,5,5" Background="WhiteSmoke">
-                    <StackPanel>
-                        
-                        <StackPanel x:Name="ComboBoxesPanel" Background="WhiteSmoke">
-                            <TextBlock Margin="29,0,32,0"><Run Text="Red"/></TextBlock>
-                            <ComboBox x:Name="redColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                               
-                            </ComboBox>
-                            <TextBlock Margin="29,0,32,0" RenderTransformOrigin="0.033,0.421"><Run Text="Green"/></TextBlock>
-                            <ComboBox x:Name="greenColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                               
-                            </ComboBox>
-                            <TextBlock Margin="29,0,32,0"><Run Text="Blue"/></TextBlock>
-                            <ComboBox x:Name="blueColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
-                               
-                            </ComboBox>
-                        </StackPanel>
-                        <StackPanel x:Name="colorMixerContainer" Orientation="Horizontal" Height="33">
-                        </StackPanel>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem x:Name="about" Header="_About" Click="MenuItem_Click">
+            </MenuItem>
+            <MenuItem x:Name="usage" DockPanel.Dock="Top" Header ="_Usage" Click="MenuItem_Click_1">
+            </MenuItem>
+        </Menu>
+        <StackPanel DockPanel.Dock="Left" x:Name="myStack" Orientation="Vertical" Width="184" Background="LightGray">
+            <Label Content="Choose a size:" Margin="12,35,22,0" FontSize="14" FontWeight="Medium"/>
+            <ComboBox x:Name="myComboBox" FontSize="14" FontWeight="Medium" Margin="15,5,22,30" RenderTransformOrigin="0.464,0.536">
+                <ComboBoxItem>1</ComboBoxItem>
+                <ComboBoxItem IsSelected="True">2</ComboBoxItem>
+                <ComboBoxItem>3</ComboBoxItem>
+                <ComboBoxItem>4</ComboBoxItem>
+                <ComboBoxItem>5</ComboBoxItem>
+                <ComboBoxItem>6</ComboBoxItem>
+            </ComboBox>
+            <GroupBox x:Name="myGroupBox" FontSize="14"  FontWeight="Bold" Padding="5" Margin="5,90,5,5" Background="WhiteSmoke">
+                <StackPanel>
+
+                    <StackPanel x:Name="ComboBoxesPanel" Background="WhiteSmoke">
+                        <TextBlock Margin="29,0,32,0"><Run Text="Red"/></TextBlock>
+                        <ComboBox x:Name="redColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
+
+                        </ComboBox>
+                        <TextBlock Margin="29,0,32,0" RenderTransformOrigin="0.033,0.421"><Run Text="Green"/></TextBlock>
+                        <ComboBox x:Name="greenColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
+
+                        </ComboBox>
+                        <TextBlock Margin="29,0,32,0"><Run Text="Blue"/></TextBlock>
+                        <ComboBox x:Name="blueColorPicker" Margin="28,0,38,5" DropDownClosed="comboBox_DropDownClosed">
+
+                        </ComboBox>
                     </StackPanel>
-                </GroupBox>
+                    <StackPanel x:Name="colorMixerContainer" Orientation="Horizontal" Height="33">
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
 
-                <Button x:Name="runBtn" Margin="15,80,22,0" Click="runBtn_Click" Content="Run"/>
-                <Button x:Name="clearBtn" Margin="15,10,22,0" Click="clearBtn_Click">Clear</Button>
-            </StackPanel>
-            <Canvas x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" Background="White">
-                <Canvas.Style>
-                    <Style TargetType="{x:Type Canvas}">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True" >
-                                <Setter Property="Cursor" Value="Pen" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Canvas.Style>
-            </Canvas>
-        </DockPanel>
-
+            <Button x:Name="runBtn" Margin="15,80,22,0" Click="runBtn_Click" Content="Run"/>
+            <Button x:Name="clearBtn" Margin="15,10,22,0" Click="clearBtn_Click">Clear</Button>
+        </StackPanel>
+        <Canvas DockPanel.Dock="Right" x:Name="main_canvas" MouseRightButtonUp="main_canvas_MouseRightButtonUp" MouseLeftButtonDown="main_canvas_MouseDown" MouseLeftButtonUp="main_canvas_MouseUp" MouseMove="main_canvas_MouseMove"  ClipToBounds="True" Background="White" Margin="0,5,0,10">
+            <Canvas.Style>
+                <Style TargetType="{x:Type Canvas}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True" >
+                            <Setter Property="Cursor" Value="Pen" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Canvas.Style>
+        </Canvas>
+    </DockPanel>
 </Window>
