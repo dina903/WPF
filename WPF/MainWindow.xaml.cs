@@ -94,11 +94,10 @@ namespace WPF
         //Right Mouse Button Up Event handler
         private void main_canvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // Save the point.
-            //cp.Add(new Point(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y));
             ptSize = checkSize(); // check combobox for current value
             // Draw the new point.
             Rectangle controlPoint = new Rectangle();
+            
             checkColor();
             colorMixer();//to check the color mixer functionality
             controlPoint.Fill = new SolidColorBrush(myColor);
@@ -106,10 +105,8 @@ namespace WPF
             controlPoint.StrokeThickness = 2;
             controlPoint.Width = 2 * ptSize;
             controlPoint.Height = 2 * ptSize;
-            //controlPoint.MouseLeftButtonDown += selectRect;
-            //controlPoint.MouseLeftButtonUp += releaseRect;
-            //controlPoint.MouseMove += mouseMove;
-            if (customeList.Count <= 5)
+           
+            if (customeList.Count <= 6)
             {
                 myP = new myCustomPoint(e.GetPosition(main_canvas).X, e.GetPosition(main_canvas).Y, myColor, ptSize);
                 customeList.Add(myP);
@@ -118,6 +115,7 @@ namespace WPF
                     main_canvas.Children.Clear();
                 Canvas.SetLeft(controlPoint, e.GetPosition(main_canvas).X - (2 * ptSize));
                 Canvas.SetTop(controlPoint, e.GetPosition(main_canvas).Y - (2 * ptSize));
+                Canvas.SetZIndex(controlPoint, 2);
                 main_canvas.Children.Add(controlPoint);
             }
             else
@@ -129,31 +127,8 @@ namespace WPF
 
         private void checkColor()
         {
-            /*  if (rbRed.IsChecked == true)
-              {
-                  myColor = Colors.Red;
-              }
-              else if (rbOlive.IsChecked == true)
-              {
-                  myColor = Colors.Olive;
-              }
-              else if (rbOrchid.IsChecked == true)
-              {
-                  myColor = Colors.Orchid;
-              }
-              else if (rbTurquoise.IsChecked == true)
-              {
-                  myColor = Colors.Turquoise;
-              }
-              else if (rbBlue.IsChecked == true)
-              {
-                  myColor = Colors.Blue;
-              }*/
-            //  else if (rbCustomColor.IsChecked == true)
-            // {
             colorMixer();
             myColor = myRgbColor;
-            //}
         }
 
         //RGB color
@@ -177,68 +152,7 @@ namespace WPF
             return (r);
         }
 
-        /*//drag and drop
-        Rectangle selectedRect;
-        bool captured = false;
-        double x_shape, x_canvas, y_shape, y_canvas;
-        private void selectRect(object sender, MouseButtonEventArgs e) // canvas MouseLeftButtonDown
-        {
-            selectedRect = (Rectangle)e.Source;
-
-            foreach (myCustomPoint pt in customeList)
-            {
-                Debug.WriteLine("Point is: " + (pt.xCoordinate - (2 * pt.pSize)) + ", " + (pt.yCoordinate - (2 * pt.pSize)));
-                Debug.WriteLine("Canvas Point is: " + Canvas.GetLeft(selectedRect) + ", " + Canvas.GetTop(selectedRect));
-
-                if ((Canvas.GetLeft(selectedRect) == (pt.xCoordinate - (2 * pt.pSize))) && (Canvas.GetTop(selectedRect) == (pt.yCoordinate - (2 * pt.pSize))))
-                {
-                    selectedRectIndex = customeList.IndexOf(pt);
-                    Debug.WriteLine("Index of selected point is: " + selectedRectIndex);
-                }
-
-            }
-            
-            if (selectedRect != null)
-            {
-                Mouse.Capture(selectedRect);
-                captured = true;
-                x_shape = Canvas.GetLeft(selectedRect);
-                x_canvas = e.GetPosition(main_canvas).X;
-                y_shape = Canvas.GetTop(selectedRect);
-                y_canvas = e.GetPosition(main_canvas).Y;
-            }
-
-        }
-        //point MouseLeftButtonUp 
-        private void releaseRect(object sender, MouseButtonEventArgs e)
-        {
-            if (captured)
-            {
-                Mouse.Capture(null);
-                captured = false;
-                Debug.WriteLine("Index Redrawn is: " + selectedRectIndex);
-                main_canvas.Children.Clear();
-                redrawPoints();
-            }
-        }
-
-        //mouse move
-        private void mouseMove(object sender, MouseEventArgs e)
-        {
-            if (captured)
-            { // rect has mouse capture
-                double x = e.GetPosition(main_canvas).X;
-                double y = e.GetPosition(main_canvas).Y;
-                x_shape += x - x_canvas;
-                Canvas.SetLeft(selectedRect, x_shape);
-                x_canvas = x;
-                y_shape += y - y_canvas;
-                Canvas.SetTop(selectedRect, y_shape);
-                y_canvas = y;
-                customeList[selectedRectIndex].xCoordinate = x_shape;
-                customeList[selectedRectIndex].yCoordinate = y_shape;
-            }
-        }*/
+       
 
         //canvas event handlers
         Rectangle selectedRect;
@@ -266,8 +180,6 @@ namespace WPF
                             selectedRectIndex = customeList.IndexOf(pt);
                             Debug.WriteLine("Index of selected point is: " + selectedRectIndex);
                             Mouse.Capture(selectedRect);
-                            // alternate version
-                            // ((UIElement) e.OriginalSource).CaptureMouse(); 
                             captured = true;
                             x_shape = Canvas.GetLeft(selectedRect);
                             x_canvas = e.GetPosition(main_canvas).X;
@@ -276,12 +188,8 @@ namespace WPF
                         }
 
                     }
-
-
                 }
             }
-
-
         }
         private void main_canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -361,7 +269,7 @@ namespace WPF
                     myRect.Height = customeList[j].pSize;
                     Canvas.SetLeft(myRect, last.xCoordinate - parentSize);
                     Canvas.SetTop(myRect, last.yCoordinate - parentSize);
-
+                    Canvas.SetZIndex(myRect, 1);
                     main_canvas.Children.Add(myRect);
                 }
 
@@ -382,9 +290,7 @@ namespace WPF
                 sqr.StrokeThickness = 2;
                 Canvas.SetLeft(sqr, pt.xCoordinate - (2 * pt.pSize));
                 Canvas.SetTop(sqr, pt.yCoordinate - (2 * pt.pSize));
-                //sqr.MouseLeftButtonDown += selectRect;
-                //sqr.MouseLeftButtonUp += releaseRect;
-                //sqr.MouseMove += mouseMove;
+                Canvas.SetZIndex(sqr, 1);
                 main_canvas.Children.Add(sqr);
             }
             // Draw points.
